@@ -52,9 +52,55 @@ const renderEntries = () => {
         row.appendChild(createCell(entry.id));
         row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
         row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
+        let btn = document.createElement("button");
+        btn.innerHTML = "Delete";
+        btn.type = "submit";
+        btn.name = "formBtn";
+        btn.onclick = function() {
+            deleteEntry(entry.id);
+        };
+
+        let updt = document.createElement("button");
+        updt.innerHTML = "Edit";
+        updt.type = "submit";
+        updt.name = "formUpdt";
+        updt.onclick = function() {
+            getEntry(entry.id);
+        };
+
+        row.appendChild(btn);
+        row.appendChild(updt);
         display.appendChild(row);
     });
 };
+
+
+const deleteEntry = (entryId) => {
+    
+    fetch(`${URL}/entries/${entryId}`, {
+        method: 'DELETE'
+    }).then(function() {
+        indexEntries();
+    });
+};
+
+const getEntry = (entryId) => {
+    
+    fetch(`${URL}/entries/${entryId}`, {
+        method: 'GET'
+    }).then((result) => {
+        result.text().then((result) => {
+            localStorage.setItem("Entry", result);
+            location.href = `${URL}/edit.html`
+        });
+    });
+};
+
+
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', function(){
     const createEntryForm = document.querySelector('#createEntryForm');

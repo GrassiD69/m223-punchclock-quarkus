@@ -47,7 +47,7 @@ public class EntryController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Entry findEntry(@PathParam("id") long id){
-        entryService.findEntry(id);
+        return entryService.findEntry(id);
     }
 
 
