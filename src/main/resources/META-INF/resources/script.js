@@ -1,5 +1,6 @@
 const URL = 'http://localhost:8080';
 let entries = [];
+let categories = [];
 
 const dateAndTimeToDate = (dateString, timeString) => {
     return new Date(`${dateString}T${timeString}`).toISOString();
@@ -99,12 +100,11 @@ const getEntry = (entryId) => {
 
 
 const indexCategories = () => {
-    fetch(`${URL}/categories`, {
+    fetch(`${URL}/category`, {
         method: 'GET'
     }).then((result) => {
         result.json().then((result) => {
             categories = result;
-            categories(categories);
         });
     });
     renderEntries();
@@ -114,11 +114,12 @@ const indexCategories = () => {
 
 const renderCategories = (categories) => {
     const selection = document.querySelector('#categories');
-    categories.forEach((categories) => {
-      
-
-       
-
+    categories.forEach((category) => {
+        var option = document.createElement("option");
+        option.value = category.id;
+        option.text = category.name;
+        selection.appendChild(option);
+    
     });
 };
 
