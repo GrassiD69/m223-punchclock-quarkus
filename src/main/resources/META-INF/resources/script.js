@@ -9,7 +9,8 @@ const createEntry = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entry = {};
-    entry['checkIn'] = dateAndTimeToDate(formData.get('checkInDate'), formData.get('checkInTime'));
+    entry['checkIn'] =
+    dateAndTimeToDate(formData.get('checkInDate'), formData.get('checkInTime'));
     entry['checkOut'] = dateAndTimeToDate(formData.get('checkOutDate'), formData.get('checkOutTime'));
 
     fetch(`${URL}/entries`, {
@@ -95,6 +96,33 @@ const getEntry = (entryId) => {
         });
     });
 };
+
+
+const indexCategories = () => {
+    fetch(`${URL}/categories`, {
+        method: 'GET'
+    }).then((result) => {
+        result.json().then((result) => {
+            categories = result;
+            categories(categories);
+        });
+    });
+    renderEntries();
+};
+
+
+
+const renderCategories = (categories) => {
+    const selection = document.querySelector('#categories');
+    categories.forEach((categories) => {
+      
+
+       
+
+    });
+};
+
+
 
 
 
