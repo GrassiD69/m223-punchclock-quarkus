@@ -11,31 +11,43 @@ const createEntry = (e) => {
     const formData = new FormData(e.target);
     const entry = {};
     entry['checkIn'] =
-    dateAndTimeToDate(formData.get('checkInDate'), formData.get('checkInTime'));
+        dateAndTimeToDate(formData.get('checkInDate'), formData.get('checkInTime'));
     entry['checkOut'] = dateAndTimeToDate(formData.get('checkOutDate'), formData.get('checkOutTime'));
 
     fetch(`${URL}/entries`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
         body: JSON.stringify(entry)
     }).then((result) => {
-        result.json().then((entry) => {
-            entries.push(entry);
-            renderEntries();
-        });
+        if (result.status == 401) {
+            location.href = "login.html";
+        } else {
+            result.json().then((entry) => {
+                entries.push(entry);
+                renderEntries();
+            });
+        }
     });
 };
 
 const indexEntries = () => {
     fetch(`${URL}/entries`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
     }).then((result) => {
-        result.json().then((result) => {
-            entries = result;
-            renderEntries();
-        });
+        if (result.status == 401) {
+            location.href = "login.html";
+        } else {
+            result.json().then((result) => {
+                entries = result;
+                renderEntries();
+            });
+        }
     });
     renderEntries();
 };
@@ -54,11 +66,12 @@ const renderEntries = () => {
         row.appendChild(createCell(entry.id));
         row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
         row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
+        row.appendChild(createCell(entry.getCat));
         let btn = document.createElement("button");
         btn.innerHTML = "Delete";
         btn.type = "submit";
         btn.name = "formBtn";
-        btn.onclick = function() {
+        btn.onclick = function () {
             deleteEntry(entry.id);
         };
 
@@ -66,7 +79,7 @@ const renderEntries = () => {
         updt.innerHTML = "Edit";
         updt.type = "submit";
         updt.name = "formUpdt";
-        updt.onclick = function() {
+        updt.onclick = function () {
             getEntry(entry.id);
         };
 
@@ -78,22 +91,36 @@ const renderEntries = () => {
 
 
 const deleteEntry = (entryId) => {
-    
+
     fetch(`${URL}/entries/${entryId}`, {
-        method: 'DELETE'
-    }).then(function() {
-        indexEntries();
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    }).then((result) => {
+        if (result.status == 401) {
+            location.href = "login.html";
+        } else {
+            indexEntries();
+        }
     });
 };
 
 const getEntry = (entryId) => {
-    
+
     fetch(`${URL}/entries/${entryId}`, {
         method: 'GET'
+        ,headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
     }).then((result) => {
         result.text().then((result) => {
+        if (result.status == 401) {
+            location.href = "login.html";
+        } else {
             localStorage.setItem("Entry", result);
             location.href = `${URL}/edit.html`
+        }
         });
     });
 };
@@ -119,7 +146,7 @@ const renderCategories = (categories) => {
         option.value = category.id;
         option.text = category.name;
         selection.appendChild(option);
-    
+
     });
 };
 
@@ -131,7 +158,7 @@ const renderCategories = (categories) => {
 
 
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
     indexEntries();

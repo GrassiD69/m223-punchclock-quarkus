@@ -21,6 +21,9 @@ public class Entry {
     @JoinColumn(name="category_fk")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name="project_fk")
+    private Project project;
     
 
     public Long getId() {

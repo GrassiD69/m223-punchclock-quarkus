@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Punchclock Client</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="login.js" type="application/javascript"></script>
+    </head>
+    <body onload="init();">
+        <form id = "loginForm">
+        
+            <div class="container">
+            <label for="uname" name = "uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+        
+            <label for="psw" name = "pwort"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+        
+            <button type="button" id="loginbtn">Login</button>
+            </div>
+        
+            <div class="container" style="background-color:#f1f1f1">
+            <button type="button" id="registerbtn">Register</button>
+            </div>
+        </form>
+    </body>

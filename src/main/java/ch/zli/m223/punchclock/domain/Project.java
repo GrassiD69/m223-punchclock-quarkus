@@ -4,7 +4,7 @@ import java.util.Set;
 
 
 @Entity
-public class Category {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy="project")
     private Set<Entry> entries;
 
 

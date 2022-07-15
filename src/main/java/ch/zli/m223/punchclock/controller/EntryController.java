@@ -2,6 +2,7 @@ package ch.zli.m223.punchclock.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,6 +29,7 @@ public class EntryController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"User", "Admin"})
     @Operation(summary = "List all Entries", description = "")
     public List<Entry> list() {
         return entryService.findAll();
@@ -35,6 +37,7 @@ public class EntryController {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"User", "Admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Add a new Entry", description = "The newly created entry is returned. The id may not be passed.")
     public Entry add(Entry entry) {
@@ -45,6 +48,7 @@ public class EntryController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"User", "Admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     public Entry findEntry(@PathParam("id") long id){
         return entryService.findEntry(id);
@@ -54,6 +58,7 @@ public class EntryController {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"User", "Admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") long id){
         entryService.deleteEntry(id);
@@ -61,6 +66,7 @@ public class EntryController {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"User", "Admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Entry entry){
         entryService.updateEntry(entry);

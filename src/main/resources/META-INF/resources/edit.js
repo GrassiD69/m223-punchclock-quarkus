@@ -23,11 +23,16 @@ function init() {
         fetch(`${URL}/entries/`, {
             method: 'PUT'
             ,headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
             },
             body: JSON.stringify(entry)
-        }).then(function() {
-            location.href = `${URL}/index.html`
+        }).then((result) => {
+            if(result.status == 401) {
+                location.href = "login.html";
+            }else {
+                location.href = `${URL}/index.html`
+            }
         });
     };
 }
