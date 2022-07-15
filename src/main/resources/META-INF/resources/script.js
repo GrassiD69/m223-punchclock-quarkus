@@ -6,6 +6,14 @@ const dateAndTimeToDate = (dateString, timeString) => {
     return new Date(`${dateString}T${timeString}`).toISOString();
 };
 
+const logout = () => {
+    var logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.onclick = () => {
+        localStorage.clear();
+        location.href = "login.html";
+    }
+}
+
 const createEntry = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -161,5 +169,8 @@ const renderCategories = (categories) => {
 document.addEventListener('DOMContentLoaded', function () {
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
+    const logoutBtn = document.querySelector('#logoutBtn')
+    logoutBtn.onclick = logout;
+
     indexEntries();
 });

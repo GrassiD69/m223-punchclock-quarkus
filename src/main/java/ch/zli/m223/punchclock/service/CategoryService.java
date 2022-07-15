@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import ch.zli.m223.punchclock.domain.Category;
 
@@ -19,6 +20,11 @@ public class CategoryService {
     public List<Category> findAll() {
         var query = entityManager.createQuery("FROM Category");
         return query.getResultList();
+    }
+
+    @Transactional 
+    public void createCategory(Category category){
+        entityManager.persist(category);
     }
     
 }

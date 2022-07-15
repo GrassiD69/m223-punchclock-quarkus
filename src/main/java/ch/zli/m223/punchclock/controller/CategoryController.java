@@ -8,6 +8,8 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 
 import ch.zli.m223.punchclock.domain.Category;
