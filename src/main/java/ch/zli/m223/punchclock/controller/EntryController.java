@@ -20,6 +20,19 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import ch.zli.m223.punchclock.domain.Entry;
 import ch.zli.m223.punchclock.service.EntryService;
 
+
+
+ /*@Author:Damian Grassi
+  *@Description: Service Class for Entry Domainclass
+  *@Version: 1.0
+  */
+
+
+
+
+
+
+
 @Path("/entries")
 @Tag(name = "Entries", description = "Handling of entries")
 public class EntryController {
@@ -27,6 +40,10 @@ public class EntryController {
     @Inject
     EntryService entryService;
 
+    
+    /** 
+     * @return List<Entry>
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"User", "Admin"})
@@ -35,6 +52,11 @@ public class EntryController {
         return entryService.findAll();
     }
 
+    
+    /** 
+     * @param entry
+     * @return Entry
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"User", "Admin"})
@@ -45,6 +67,11 @@ public class EntryController {
     }
 
 
+    
+    /** 
+     * @param id
+     * @return Entry
+     */
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,6 +82,10 @@ public class EntryController {
     }
 
 
+    
+    /** 
+     * @param id
+     */
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,6 +95,10 @@ public class EntryController {
         entryService.deleteEntry(id);
     }
 
+    
+    /** 
+     * @param entry
+     */
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"User", "Admin"})

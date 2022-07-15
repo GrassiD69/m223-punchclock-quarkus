@@ -15,7 +15,11 @@ import javax.inject.Inject;
 import ch.zli.m223.punchclock.domain.Category;
 import ch.zli.m223.punchclock.service.CategoryService;
 
-
+  /*
+  *@Author:Damian Grassi
+  *@Description: Service Class for Category Domainclass
+  *@Version: 1.0
+  */
 @Path("/category")
 @Tag(name = "Category", description = "Handling of Categories")
 public class CategoryController {
@@ -23,6 +27,11 @@ public class CategoryController {
     @Inject
     CategoryService categoryService;
 
+    
+    /** 
+     * A Method to return all Categories
+     * @return List<Category>
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"User", "Admin"})

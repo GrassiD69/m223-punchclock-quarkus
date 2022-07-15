@@ -16,6 +16,16 @@ import ch.zli.m223.punchclock.service.AuthenticationService;
 import ch.zli.m223.punchclock.service.UserService;
 import io.quarkus.security.UnauthorizedException;
 
+
+/*
+  *@Author:Damian Grassi
+  *@Description: Service Class for User Domainclass
+  *@Version: 1.0
+*/
+
+
+/* */
+
 @Path("/user")
 @Tag(name = "Users", description = "Handling of User")
 public class UserController {
@@ -25,6 +35,11 @@ public class UserController {
     @Inject
     AuthenticationService authorizationService;
 
+    
+    /** 
+     * @param user
+     * @return String
+     */
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,6 +56,10 @@ public class UserController {
         throw new UnauthorizedException("Username or password invalid");
     }
 
+    
+    /** 
+     * @param user
+     */
     @POST
     @Path("/register")
     @Operation(summary = "create user in db", description = "")
